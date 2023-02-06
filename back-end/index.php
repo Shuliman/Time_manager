@@ -57,8 +57,11 @@ echo "<p>Today is: $today <br>";
     }
     ?>
 </table>
-<form action="index.php" method="post" id="timeAdding">
+<form action="index.php" method="post">
     <p>How much time have you spent on the project today? : <input type="float" name="project" />
+    <input type="submit" value="Submit">
+</form>
+<form action="index.php" method="post" >
     <p>How much time have you spent on learning today? : <input type="float" name="learning" /></p>
     <input type="submit" value="Submit">
 </form>
@@ -132,10 +135,5 @@ td {
     text-align: center;
 }
 </style>
-<script>
-  window.onload = function() {
-    document.getElementById("timeAdding").reset();
-  };
-</script>
 </body>
 </html>
