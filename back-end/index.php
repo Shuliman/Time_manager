@@ -21,6 +21,8 @@
         private $password = "";
         public $tableName = "drey_copy";
 
+        public $connection;
+
         public function __construct()
         {
             $this->connection = mysqli_connect($this->servername, $this->username, $this->password, $this->database);
