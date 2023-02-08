@@ -98,8 +98,6 @@
     $requestedProjectTime = isset($_POST["project"]) ? (float)$_POST["project"] : 0; //verification inputing method, & appropriation if it right
     $requestedLearnTime = isset($_POST["learning"]) ? (float)$_POST["learning"] : 0;
 
-    echo "<br>requestedLearnTime: $requestedLearnTime<br>" . "<br>requestedProjectTime: $requestedProjectTime<br>";
-
     function  add_time(string $time_to, float $time)
     {
         global $db;
@@ -125,14 +123,14 @@
     add_time('learning', $requestedLearnTime);
     add_time('project', $requestedProjectTime);
 
-    $time_on_learning_all = 514;
+    $time_on_learning_all = 514; // changed with user
     foreach ($time_on_learning as $key => $value) {
         global $time_on_learning_all;
         $time_on_learning_all += $key;
     }
     echo '<br> Time on learn all: ' . ' ' .  $time_on_learning_all;
 
-    $time_on_project_all = 510;
+    $time_on_project_all = 510; // changed with user
     foreach ($time_on_project as $key => $value) {
         global $time_on_project_all;
         $time_on_project_all += $key;
