@@ -20,7 +20,6 @@
         private $username = "root";
         private $password = "";
         public $tableName = "drey_copy";
-
         public $connection;
 
         public function __construct()
@@ -126,25 +125,6 @@
     add_time('learning', $requestedLearnTime);
     add_time('project', $requestedProjectTime);
 
-    /*
-TO FUCKING DO!!!
-foreach ($time_on_project as $key => $value) {
-    echo $key . '<br>';
-}
-
-
-
-echo 'time on project';
-foreach ($time_on_project as $value) {
-    echo "<br>$value<br>";
-}
-echo 'time on lerning';
-foreach ($time_on_learning as $value) {
-    echo "<br>$value<br>";
-}*/
-
-
-
     $time_on_learning_all = 514;
     foreach ($time_on_learning as $key => $value) {
         global $time_on_learning_all;
@@ -167,5 +147,4 @@ foreach ($time_on_learning as $value) {
         }
     </style>
 </body>
-
 </html>
