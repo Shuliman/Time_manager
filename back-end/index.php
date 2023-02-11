@@ -10,7 +10,7 @@
 
 <body>
     <?php
-    $today =  date('Y-m-d');
+    $today = date('Y-m-d');
     $time_on_project = [];
     $time_on_learning = [];
     class DBConnection
@@ -19,7 +19,7 @@
         private $database = "time_manager";
         private $username = "root";
         private $password = "";
-        public $tableName = "drey_copy";
+        public $tableName = "drey";
         public $connection;
 
         public function __construct()
@@ -44,22 +44,31 @@
         public function getProjectTimeForLastWeek()
         {
             return  mysqli_fetch_row(mysqli_query($this->connection, "SELECT SUM(time_on_project)
-        FROM $this->tableName
-        WHERE day BETWEEN CURRENT_DATE - INTERVAL 7 DAY AND CURRENT_DATE;"));
+            FROM $this->tableName
+            WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();"))[0];
         }
 
         public function getLearningTimeForLastWeek()
         {
             return  mysqli_fetch_row(mysqli_query($this->connection, "SELECT SUM(time_on_learning)
-        FROM $this->tableName
-        WHERE day BETWEEN CURRENT_DATE - INTERVAL 7 DAY AND CURRENT_DATE;"));
+            FROM $this->tableName
+            WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();"))[0];
         }
+        public function addTimeData($projectTime, $learningTime)
+        {
+            $query = "INSERT INTO $this->tableName (day, time_on_project, time_on_learning) 
+            VALUES (CURRENT_DATE, $projectTime, $learningTime) 
+            ON DUPLICATE KEY UPDATE time_on_project = time_on_project + $projectTime, 
+            time_on_learning = time_on_learning + $learningTime";
+            return mysqli_query($this->connection, $query);
+        }
+        
     }
     $db = new DBConnection();
     $queryLastWeek = $db->getLastWeekData();
     $time_on_project = $db->getProjectTime();
-    $time_on_project_from_last_week = $db->getProjectTimeForLastWeek()[0];
-    $time_on_learning_from_last_week = $db->getLearningTimeForLastWeek()[0];
+    $time_on_project_from_last_week = $db->getProjectTimeForLastWeek();
+    $time_on_learning_from_last_week = $db->getLearningTimeForLastWeek();
     $check_query = mysqli_query($db->connection, "SELECT * FROM $db->tableName WHERE day='$today'");
     if (mysqli_num_rows($check_query) == 0) {
         mysqli_query($db->connection, "INSERT INTO $db->tableName (day, time_on_project, time_on_learning) 
@@ -97,31 +106,8 @@
     <?php
     $requestedProjectTime = isset($_POST["project"]) ? (float)$_POST["project"] : 0; //verification inputing method, & appropriation if it right
     $requestedLearnTime = isset($_POST["learning"]) ? (float)$_POST["learning"] : 0;
-
-    function  add_time(string $time_to, float $time)
-    {
-        global $db;
-        switch ($time_to) {
-            case 'project':
-                $query = "INSERT INTO $db->tableName (day, time_on_project)
-            VALUES (CURDATE(), $time)
-            ON DUPLICATE KEY UPDATE
-            time_on_project = time_on_project + $time;";
-                mysqli_query($db->connection, $query);
-                break;
-            case 'learning':
-                $query = "INSERT INTO $db->tableName (day, time_on_learning)
-            VALUES (CURDATE(), $time)
-            ON DUPLICATE KEY UPDATE
-            time_on_learning = time_on_learning + $time;";
-                mysqli_query($db->connection, $query);
-                break;
-        }
-    }
-
-
-    add_time('learning', $requestedLearnTime);
-    add_time('project', $requestedProjectTime);
+    
+    $db->addTimeData($requestedProjectTime, $requestedLearnTime);
 
     $time_on_learning_all = 514; // changed with user
     foreach ($time_on_learning as $key => $value) {
