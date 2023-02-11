@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <h1>DEV</h1>
     <?php
     $today =  date('Y-m-d');
     $time_on_project = [];
