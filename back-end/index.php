@@ -9,9 +9,8 @@
 </head>
 
 <body>
-    <h1>DEV</h1>
     <?php
-    $today =  date('Y-m-d');
+    $today = date('Y-m-d');
     $time_on_project = [];
     $time_on_learning = [];
     class DBConnection
@@ -20,7 +19,7 @@
         private $database = "time_manager";
         private $username = "root";
         private $password = "";
-        public $tableName = "drey_copy";
+        public $tableName = "drey";
         public $connection;
 
         public function __construct()
