@@ -46,14 +46,14 @@
         {
             return  mysqli_fetch_row(mysqli_query($this->connection, "SELECT SUM(time_on_project)
             FROM $this->tableName
-            WHERE day BETWEEN CURRENT_DATE - INTERVAL 7 DAY AND CURRENT_DATE;"))[0];
+            WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();"))[0];
         }
 
         public function getLearningTimeForLastWeek()
         {
             return  mysqli_fetch_row(mysqli_query($this->connection, "SELECT SUM(time_on_learning)
             FROM $this->tableName
-            WHERE day BETWEEN CURRENT_DATE - INTERVAL 7 DAY AND CURRENT_DATE;"))[0];
+            WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();"))[0];
         }
         public function addTimeData($projectTime, $learningTime)
         {
