@@ -1,0 +1,60 @@
+Endpoints
+The following endpoints are available for the Time Manager back-end:
+
+GET /Time_manager/back-end/index.php/time - Returns all the time data.
+GET /Time_manager/back-end/index.php/time/last_week - Returns the time data from the last week.
+GET /Time_manager/back-end/index.php/time/last_week/project - Returns the project time from the last week.
+GET /Time_manager/back-end/index.php/time/last_week/learning - Returns the learning time from the last week.
+POST /Time_manager/back-end/index.php/time - Adds a new time entry.
+DELETE /Time_manager/back-end/index.php/time/{date} - Deletes a time entry for the specified date.
+Request and Response Formats
+GET /Time_manager/back-end/index.php/time
+Request
+There is no request body for this endpoint.
+
+Response
+The response is a JSON array of time data objects. Each object has the following properties:
+
+date: the date of the time entry (YYYY-MM-DD).
+projectTime: the amount of time spent on projects in hours.
+learningTime: the amount of time spent on learning in hours.
+GET /Time_manager/back-end/index.php/time/last_week
+Request
+There is no request body for this endpoint.
+
+Response
+The response is a JSON array of time data objects from the last week. Each object has the following properties:
+
+date: the date of the time entry (YYYY-MM-DD).
+projectTime: the amount of time spent on projects in hours.
+learningTime: the amount of time spent on learning in hours.
+GET /Time_manager/back-end/index.php/time/last_week/project
+Request
+There is no request body for this endpoint.
+
+Response
+The response is a JSON object with the following property:
+
+projectTime: the total amount of time spent on projects in hours from the last week.
+GET /Time_manager/back-end/index.php/time/last_week/learning
+Request
+There is no request body for this endpoint.
+
+Response
+The response is a JSON object with the following property:
+
+learningTime: the total amount of time spent on learning in hours from the last week.
+POST /Time_manager/back-end/index.php/time
+Request
+The request body is a JSON object with the following properties:
+
+projectTime: the amount of time spent on projects in hours.
+learningTime: the amount of time spent on learning in hours.
+Response
+The response is a JSON object with the following property:
+
+message: a string indicating whether the time data was successfully added or not.
+
+DELETE /Time_manager/back-end/index.php/time/{date}
+Request
+There is getting DELETE query & date as string in SQL format

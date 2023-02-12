@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: Time API
+  description: API for managing time data
+  version: 1.0.0
+servers:
+  - url: http://localhost/api/time.php
+paths:
+  /:
+    get:
+      description: Get all time data
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    day:
+                      type: string
+                      format: date
+                      description: Date of the time data
+                    time_on_project:
+                      type: integer
+                      description: Time spent on project
+                    time_on_learning:
+                      type: integer
+                      description: Time spent on learning
+  /lastweek:
+    get:
+      description: Get all time data for the last week
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    day:
+                      type: string
+                      format: date
+                      description: Date of the time data
+                    time_on_project:
+                      type: integer
+                      description: Time spent on project
+                    time_on_learning:
+                      type: integer
+                      description: Time spent on learning
+  /lastweek/project:
+    get:
+      description: Get project time for the last week
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                description: Time spent on project for the last week
+  /lastweek/learning:
+    get:
+      description: Get learning time for the last week
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                description: Time spent on learning for the last week
+  /add:
+    post:
+      description: Add time data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                time_on_project:
+                  type: integer
+                  description: Time spent on project
+                time_on_learning:
+                  type: integer
+                  description: Time spent on learning
+      responses:
+        '200':
+          description: OK
+  /delete/{day}:
+    delete:
+      description: Delete time data for a specific day
+      parameters:
+        - name: day
+          in: path
+          required: true
+          description: Day to delete time data for
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: OK
