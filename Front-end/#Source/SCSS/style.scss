@@ -10,28 +10,6 @@
   }
 }
 
-.body__bigcolumn{
-  line-height: 30px;
-  .body__columns{
-    display: flex;
-    & div{
-      width: 220px;
-      font-weight: bold;
-      text-align: center;
-      margin: 0 2%;
-    }
-  }
-  .body_columnsinfo{
-    display: flex;
-    & div{
-      width: 220px;
-      text-align: center;
-      margin: 0 2%;
-      max-height: 140px;
-    }
-  }
-  margin: 0 0 30px 0;
-}
 .form{
   line-height: 40px;
   & input{
@@ -50,7 +28,6 @@
   .form__button{
     text-align: center;
     .sendbutton{
-      // background-color: rgb(47, 48, 56);
       background-color: rgb(93, 97, 101);
       width: 80px;
       height: 25px;
@@ -73,4 +50,28 @@
 body{
   background-color: #36393E;
   color: rgb(200,201,203);
+}
+
+
+.body__column {
+  text-align: center;
+  .body__column-above
+  {
+    margin: 30px 0 10px 0;
+    display: flex;
+    .abovetext
+    {
+      flex: 0 0 33.3%;
+    }
+  }
+  .body__column-data{
+    display: flex;
+    .datatext
+    {
+      flex: 0 0 33.3%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  margin: 0 0 25px 0;
 }

@@ -10,36 +10,45 @@
         <div class="body">
             <div class="body__header">
                 <div class="body__status">
-                    Connected successfully
+                    Connected <span>{status}</span>
                 </div>
                 <div class="body__actualdata">
-                    Today is: {Day}
+                    Today is: <span>{Day}</span>
                 </div>
             </div>
-                <div class="body__bigcolumn">
-                    <div class="body__columns">
-                        <div class="body__day">
-                            Day
-                        </div>
-                        <div class="body__timeonproject">
-                            Time on Project
-                        </div>
-                        <div class="body__timeonlearn">
-                            Time on Learning
-                        </div>
+
+
+            <div class="body__column">
+                <div class="body__column-above">
+
+                    <div class="body__column-above-day abovetext">
+                        Day
                     </div>
-                    <div class="body_columnsinfo">
-                        <div class="body__columnday">
-                            {DATA}
-                        </div>
-                        <div class="body__columnprtime">
-                            {TIME}
-                        </div>
-                        <div class="body__columnlrtime">
-                            {TIME}
-                        </div>
+
+                    <div class="body__column-above-timeonproject abovetext">
+                        time on project
+                    </div>
+
+                    <div class="body__column-above-timeonlearn abovetext">
+                        time on learn
+                    </div>
+
+                </div>
+
+                <div class="body__column-data">
+                    <div class="body__column-data-day datatext">
+                        {value}
+                    </div>
+                    <div class="body__column-data-timeonproject datatext">
+                        {value}
+                    </div>
+                    <div class="body__column-data-timeonlearn datatext">
+                        {value}
                     </div>
                 </div>
+            </div>
+
+
             <form action="#" method="get" class="form" enctype="multipart/form-data">
                 <div class="form__project">
                     <span>
