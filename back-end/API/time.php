@@ -1,5 +1,7 @@
 <?php
 namespace api;
+use PDO;
+use PDOException;
 class Time
 {
     private $servername = "localhost";
@@ -11,17 +13,21 @@ class Time
 
     public function __construct()
     {
-        $this->connection = mysqli_connect($this->servername, $this->username, $this->password, $this->database);
-        if (!$this->connection) {
-            die("Connection failed: " . mysqli_connect_error());
+        try {
+            $dsn = "mysql:host=$this->servername;dbname=$this->database";
+            $this->connection = new PDO($dsn, $this->username, $this->password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
         }
     }
 
     public function getLastWeekData()
     {
         $data = array();
-        $query = mysqli_query($this->connection, "SELECT * FROM $this->tableName WHERE day BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW();");
-        while ($row = mysqli_fetch_assoc($query)) {
+        $query = $this->connection->prepare("SELECT * FROM $this->tableName WHERE day BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW();");
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $data[] = $row;
         }
         return json_encode($data);
@@ -29,38 +35,48 @@ class Time
 
     public function getProjectTimeForLastWeek()
     {
-        return  mysqli_fetch_row(mysqli_query($this->connection, "SELECT SUM(time_on_project)
+        $query = $this->connection->prepare("SELECT SUM(time_on_project)
         FROM $this->tableName
-        WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();"))[0];
+        WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();");
+        $query->execute();
+        return $query->fetchColumn();
     }
 
     public function getLearningTimeForLastWeek()
     {
-        return  mysqli_fetch_row(mysqli_query($this->connection, "SELECT SUM(time_on_learning)
+        $query = $this->connection->prepare("SELECT SUM(time_on_learning)
         FROM $this->tableName
-        WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();"))[0];
+        WHERE day BETWEEN NOW() - INTERVAL 1 WEEK AND NOW();");
+        $query->execute();
+        return $query->fetchColumn();
     }
 
     public function addTimeData($projectTime, $learningTime)
     {
         $query = "INSERT INTO $this->tableName (day, time_on_project, time_on_learning) 
-        VALUES (CURRENT_DATE, $projectTime, $learningTime) 
-        ON DUPLICATE KEY UPDATE time_on_project = time_on_project + $projectTime, 
-        time_on_learning = time_on_learning + $learningTime";
-        return mysqli_query($this->connection, $query);
+        VALUES (CURRENT_DATE, :projectTime, :learningTime) 
+        ON DUPLICATE KEY UPDATE time_on_project = time_on_project + :projectTime, 
+        time_on_learning = time_on_learning + :learningTime";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(':projectTime', $projectTime);
+        $stmt->bindParam(':learningTime', $learningTime);
+        return $stmt->execute();
     }
 
     public function deleteTimeData($day)
     {
-        $query = "DELETE FROM $this->tableName WHERE day='$day'";
-        return mysqli_query($this->connection, $query);
+        $query = "DELETE FROM $this->tableName WHERE day=:day";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(':day', $day);
+        return $stmt->execute();
     }
 
     public function getAllData()
     {
         $data = array();
-        $query = mysqli_query($this->connection, "SELECT * FROM $this->tableName");
-        while ($row = mysqli_fetch_assoc($query)) {
+        $query = $this->connection->prepare("SELECT * FROM $this->tableName");
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $data[] = $row;
         }
         return json_encode($data);
