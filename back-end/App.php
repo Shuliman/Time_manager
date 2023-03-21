@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <h1>DEV</h1>
     <?php
 	$config = require 'config.php';
     $today =  date('Y-m-d');
