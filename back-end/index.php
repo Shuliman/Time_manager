@@ -4,9 +4,11 @@ namespace api;
 
 include_once(__DIR__ . "/API/time.php");
 
+$config = require 'config.php';
+
 const ROUTE = "/Time_manager/back-end/index.php"; 
 
-$Time = new Time();
+$Time = new Time($config);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === ROUTE . '/time') {
     header("Content-Type: application/json; charset=UTF-8");

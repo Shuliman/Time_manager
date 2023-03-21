@@ -11,22 +11,26 @@
 <body>
     <h1>DEV</h1>
     <?php
+	$config = require 'config.php';
     $today =  date('Y-m-d');
     class DBManager
     {
-        private $servername = "localhost";
-        private $database = "time_manager";
-        private $username = "root";
-        private $password = "";
-        private $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_STRINGIFY_FETCHES => false,
-        ];
-        public $tableName = "drey_copy";
+        private $servername;
+        private $database;
+        private $username;
+        private $password;
+        private $options;
+        public $tableName;
         public $connection;
 
-        public function __construct()
+        public function __construct($config)
         {
+			$this->servername = $config['db']['host'];
+			$this->database = $config['db']['dbname'];
+			$this->username = $config['db']['username'];
+			$this->password = $config['db']['password'];
+			$this->options = $config['db']['options'];
+			$this->tableName = $config['db']['tableName'];
             $this->connection = new PDO("mysql:host=$this->servername;dbname=$this->database", $this->username, $this->password, $this->options);
         }
 
@@ -76,7 +80,7 @@
         }
     }
     
-    $db = new DBManager();
+    $db = new DBManager($config);
     
     $time_on_project_from_last_week = $db->getProjectTimeForLastWeek();
     $time_on_learning_from_last_week = $db->getLearningTimeForLastWeek();
@@ -116,10 +120,10 @@
     $db->addTimeData($requestedProjectTime, $requestedLearnTime);
 
     $totalLearningTime = $db->getTotalLearningTime();
-	echo "<br>Total project time: " . $totalLearningTime + 514;
+	echo "<br>Total project time: " . $totalLearningTime + $config['time']['learning'];
 
 	$totalProjectTime = $db->getTotalProjectTime();
-	echo "<br>Total project time: " . $totalProjectTime + 510;
+	echo "<br>Total project time: " . $totalProjectTime + $config['time']['project'];
 
     ?>
     <style>

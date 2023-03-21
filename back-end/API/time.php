@@ -5,19 +5,25 @@ use PDO;
 use PDOException;
 class Time
 {
-    private $servername = "localhost";
-    private $database = "time_manager";
-    private $username = "root";
-    private $password = "";
-    public $tableName = "drey_copy";
+    private $servername;
+    private $database;
+    private $username;
+    private $password;
+    private $options;
+    public $tableName;
     public $connection;
 
-    public function __construct()
+    public function __construct($config)
     {
+        $this->servername = $config['db']['host'];
+        $this->database = $config['db']['dbname'];
+        $this->username = $config['db']['username'];
+        $this->password = $config['db']['password'];
+        $this->options = $config['db']['options'];
+        $this->tableName = $config['db']['tableName'];
         try {
             $dsn = "mysql:host=$this->servername;dbname=$this->database";
             $this->connection = new PDO($dsn, $this->username, $this->password);
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
