@@ -57,13 +57,15 @@ class Time
         if ($projectTime < 0 || $learningTime < 0) {
             throw new InvalidArgumentException("Time values cannot be negative.");
         }
+        if ($projectTime >= 24 || $learningTime >= 24) {
+            throw new InvalidArgumentException("Time values cannot be over 24.");
+        }
         if ($projectTime === null) {
             $projectTime = 0;
         }
         if ($learningTime === null) {
             $learningTime = 0;
         }
-    
         $query = "INSERT INTO $this->tableName (day, time_on_project, time_on_learning)
                   VALUES (CURRENT_DATE, :projectTime, :learningTime)
                   ON DUPLICATE KEY UPDATE time_on_project = time_on_project + :projectTime,
