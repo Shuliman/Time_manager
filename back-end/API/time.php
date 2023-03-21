@@ -97,4 +97,17 @@ class Time
         }
         return json_encode($data);
     }
+
+    public function getTotalProjectTime()
+    {
+        $query = $this->connection->query("SELECT SUM(`time_on_project`) FROM $this->tableName");
+        
+        return  round($query->fetchColumn(), 2);
+    }
+    public function getTotalLearningTime()
+    {
+        $query = $this->connection->query("SELECT SUM(`time_on_learning`) FROM $this->tableName");
+        
+        return  round($query->fetchColumn(), 2);
+    }
 }
