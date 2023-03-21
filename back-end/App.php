@@ -12,8 +12,6 @@
     <h1>DEV</h1>
     <?php
     $today =  date('Y-m-d');
-    $time_on_project = [];
-    $time_on_learning = [];
     class DBManager
     {
         private $servername = "localhost";
@@ -34,17 +32,23 @@
 
         public function getLastWeekData()
         {
-            $query = $this->connection->query("SELECT * FROM $this->tableName WHERE day 
+            $query = $this->connection->query("SELECT day, time_on_project, time_on_learning FROM $this->tableName WHERE day 
             BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()");
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function getProjectTime()
-        {
-            $query = $this->connection->query("SELECT `time_on_project` FROM $this->tableName");
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-        }
-
+		public function getTotalProjectTime()
+		{
+			$query = $this->connection->query("SELECT SUM(`time_on_project`) FROM $this->tableName");
+			
+			return  round($query->fetchColumn(), 2);
+		}
+		public function getTotalLearningTime()
+		{
+			$query = $this->connection->query("SELECT SUM(`time_on_learning`) FROM $this->tableName");
+			
+			return  round($query->fetchColumn(), 2);
+		}
         public function getProjectTimeForLastWeek()
         {
             $query = $this->connection->query("SELECT SUM(time_on_project) FROM $this->tableName WHERE day 
@@ -71,12 +75,12 @@
             return $query->execute();
         }
     }
+    
     $db = new DBManager();
-    $queryLastWeek = $db->getLastWeekData();
-    $time_on_project = $db->getProjectTime();
+    
     $time_on_project_from_last_week = $db->getProjectTimeForLastWeek();
     $time_on_learning_from_last_week = $db->getLearningTimeForLastWeek();
-    $check_query = $db->connection->query("SELECT * FROM $db->tableName WHERE day=$today");
+    $check_all_query = $db->connection->query("SELECT day, time_on_project, time_on_learning FROM $db->tableName WHERE day=$today");
     echo "<p>Today is: $today <br>";
     ?>
     <table>
@@ -86,7 +90,8 @@
             <th>Time on Learning</th>
         </tr>
         <?php
-        $stmt = $db->connection->prepare("SELECT * FROM $db->tableName WHERE day BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()");
+        $stmt = $db->connection->prepare("SELECT day, time_on_project, time_on_learning FROM $db->tableName 
+        WHERE day BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()");
         $stmt->execute();
         $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -114,19 +119,11 @@
 
     $db->addTimeData($requestedProjectTime, $requestedLearnTime);
 
-    $time_on_learning_all = 514; // changed with user
-    foreach ($time_on_learning as $key => $value) {
-        global $time_on_learning_all;
-        $time_on_learning_all += $key;
-    }
-    echo '<br> Time on learn all: ' . ' ' .  $time_on_learning_all;
+    $totalLearningTime = $db->getTotalLearningTime();
+	echo "<br>Total project time: " . $totalLearningTime + 514;
 
-    $time_on_project_all = 510; // changed with user
-    foreach ($time_on_project as $key => $value) {
-        global $time_on_project_all;
-        $time_on_project_all += $key;
-    }
-    echo '<br> Time on project all: ' . ' ' . $time_on_project_all;
+	$totalProjectTime = $db->getTotalProjectTime();
+	echo "<br>Total project time: " . $totalProjectTime + 510;
 
     ?>
     <style>

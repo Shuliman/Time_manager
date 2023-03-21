@@ -29,6 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === ROUTE . 
     echo $Time->getLearningTimeForLastWeek();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === ROUTE . '/time/project') {
+    header("Content-Type: application/json; charset=UTF-8");
+    echo $Time->getTotalProjectTime();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === ROUTE . '/time/learning') {
+    header("Content-Type: application/json; charset=UTF-8");
+    echo $Time->getTotalLearningTime();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === ROUTE . '/time') {
     $projectTime = $_POST['projectTime'];
     $learningTime = $_POST['learningTime'];
