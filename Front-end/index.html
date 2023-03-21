@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Time Manager</title>
+    <meta>
+    <link rel="stylesheet" href="css\style.css">
+</head>
+    <body>
+        <div class="body">
+            <div class="body__header">
+                <div class="body__status">
+                    Connected <span>{status}</span>
+                </div>
+                <div class="body__actualdata">
+                    Today is: <span>{Day}</span>
+                </div>
+            </div>
+
+
+            <div class="body__column">
+                <div class="body__column-above">
+
+                    <div class="body__column-above-day abovetext">
+                        Day
+                    </div>
+
+                    <div class="body__column-above-timeonproject abovetext">
+                        time on project
+                    </div>
+
+                    <div class="body__column-above-timeonlearn abovetext">
+                        time on learn
+                    </div>
+
+                </div>
+
+                <div class="body__column-data">
+                    <div class="body__column-data-day datatext">
+                        {value}
+                    </div>
+                    <div class="body__column-data-timeonproject datatext">
+                        {value}
+                    </div>
+                    <div class="body__column-data-timeonlearn datatext">
+                        {value}
+                    </div>
+                </div>
+            </div>
+
+
+            <form action="#" method="get" class="form" enctype="multipart/form-data">
+                <div class="form__project">
+                    <span>
+                        How much time have you spent on the project today? : 
+                    </span> <input class="input__project" type="text">
+                </div>
+                <div class="form__learning">
+                    <span>
+                        How much time have you spent on learning today? : 
+                    </span> <input class="input__learn" type="text">
+                </div>
+                <div class="form__button">
+                    <button type="submit" class="sendbutton">Send</button>
+                </div>
+            </form>
+            <div class="body__conclusions">
+                <div class="body__weektime">
+                    <div class="body__project">
+                        PR time from last week: <span class="body__project_value">
+                            {VALUE}
+                        </span>
+                    </div>
+                    <div class="body__learning">
+                        LR time from last week: <span class="body__learning_value">
+                            {VALUE}
+                        </span>
+                    </div>
+                </div>
+                <div class="body__alltime">
+                    <div class="body__projectall">
+                        PR time all: <span class="body__projectall_value">
+                            {VALUE}
+                        </span>
+                    </div>
+                    <div class="body__learnall">
+                         LR time all: <span class="body__learnall_value">
+                            {VALUE}
+                         </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+<html>

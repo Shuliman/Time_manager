@@ -1,0 +1,145 @@
+@charset "UTF-8";
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/*--------------------*/
+.body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  max-width: 670px;
+  margin: 0px auto;
+  font-size: 20px;
+}
+.body .body__header {
+  line-height: 40px;
+}
+
+.form {
+  line-height: 40px;
+  margin: 0 0 10px 0;
+}
+.form input {
+  height: 25px;
+  font-size: 20px;
+  background-color: rgb(73, 77, 86);
+  color: rgb(200, 201, 203);
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 0 7px 0 7px;
+  min-width: 100px;
+}
+.form .input__project:focus, .form .input__learn:focus {
+  box-shadow: 0px 0px 14px rgb(41, 39, 39);
+}
+.form .form__button {
+  text-align: center;
+}
+.form .form__button .sendbutton {
+  background-color: rgb(93, 97, 101);
+  width: 80px;
+  height: 25px;
+  font-size: 20px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  color: rgb(200, 201, 203);
+}
+
+.body__conclusions > div {
+  line-height: 40px;
+}
+.body__conclusions .body__weektime {
+  margin: 0 0 30px 0;
+}
+
+body {
+  background-color: #36393E;
+  color: rgb(200, 201, 203);
+}
+
+.body__column {
+  text-align: center;
+  margin: 0 0 25px 0;
+}
+.body__column .body__column-above {
+  margin: 30px 0 10px 0;
+  display: flex;
+}
+.body__column .body__column-above .abovetext {
+  flex: 0 0 33.3%;
+}
+.body__column .body__column-data {
+  display: flex;
+}
+.body__column .body__column-data .datatext {
+  flex: 0 0 33.3%;
+  display: flex;
+  flex-direction: column;
+}/*# sourceMappingURL=style.css.map */

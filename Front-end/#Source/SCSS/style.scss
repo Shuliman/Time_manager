@@ -1,0 +1,77 @@
+@import "zerost.scss";
+
+.body{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  max-width: 670px;
+  margin: 0px auto;
+  font-size: 20px;
+  .body__header{
+    line-height: 40px;
+  }
+}
+
+.form{
+  line-height: 40px;
+  & input{
+    height: 25px;
+    font-size: 20px;
+    background-color: rgb(73, 77, 86);
+    color: rgb(200,201,203);
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 0 7px 0 7px;
+    min-width: 100px;
+  }
+  .input__project:focus, .input__learn:focus{
+      box-shadow: 0px 0px 14px rgb(41, 39, 39);
+  }
+  .form__button{
+    text-align: center;
+    .sendbutton{
+      background-color: rgb(93, 97, 101);
+      width: 80px;
+      height: 25px;
+      font-size: 20px;
+      border: 1px solid #000;
+      border-radius: 8px;
+      color: rgb(200,201,203)
+    }
+  }
+  margin: 0 0 10px 0;
+}
+.body__conclusions{
+  >div{
+    line-height: 40px;
+  }
+  .body__weektime{
+    margin: 0 0 30px 0;
+  }
+}
+body{
+  background-color: #36393E;
+  color: rgb(200,201,203);
+}
+
+
+.body__column {
+  text-align: center;
+  .body__column-above
+  {
+    margin: 30px 0 10px 0;
+    display: flex;
+    .abovetext
+    {
+      flex: 0 0 33.3%;
+    }
+  }
+  .body__column-data{
+    display: flex;
+    .datatext
+    {
+      flex: 0 0 33.3%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  margin: 0 0 25px 0;
+}
