@@ -80,7 +80,6 @@
     
     $time_on_project_from_last_week = $db->getProjectTimeForLastWeek();
     $time_on_learning_from_last_week = $db->getLearningTimeForLastWeek();
-    $check_all_query = $db->connection->query("SELECT day, time_on_project, time_on_learning FROM $db->tableName WHERE day=$today");
     echo "<p>Today is: $today <br>";
     ?>
     <table>
@@ -90,10 +89,7 @@
             <th>Time on Learning</th>
         </tr>
         <?php
-        $stmt = $db->connection->prepare("SELECT day, time_on_project, time_on_learning FROM $db->tableName 
-        WHERE day BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()");
-        $stmt->execute();
-        $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $resultSet = $db->getLastWeekData();
 
         foreach ($resultSet as $row) {
             echo '<tr>';
@@ -115,7 +111,7 @@
     </form>
     <?php
     $requestedProjectTime = isset($_POST["project"]) ? (float)$_POST["project"] : 0; //verification inputing method, & appropriation if it right
-    $requestedLearnTime = isset($_POST["learning"]) ? (float)$_POST["learning"] : 0;
+    $requestedLearnTime = isset($_POST["learning"]) ? (float)$_POST["learning"] : 0; //In this version i don't reduce it, but where we been used separated front/back-end we can't use this patch
 
     $db->addTimeData($requestedProjectTime, $requestedLearnTime);
 
