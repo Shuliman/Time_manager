@@ -2,4 +2,5 @@
 sql.txt
 .vscode/
 идея.txt
-config.php
+/back-end/config.php
+/back-end/задачи.txt
