@@ -15,4 +15,4 @@ It allows users to track and manage their time spent on projects or learning act
     time_on_learning FLOAT NULL,
     PRIMARY KEY (day)
   );`
--You need to configure your server where the app will be running
+- You need to configure your server where the app will be running
