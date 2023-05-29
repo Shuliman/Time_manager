@@ -1,14 +1,18 @@
-##### Time_manager
+# Time_manager
 
-This is a time manager created with vanilla php & js.
-Also our app caalculate time spendet on project/learning for all time and for a last week. 
-Application will be orginized in two seperated parts: front-end server and back-end server. Now - only one back-end server
+This is a time manager created with php
+It allows users to track and manage their time spent on projects or learning activities. The application calculates the total time spent on a project/learning activity over all time and provides a summary for the last week.
 
 
-##### Features:
-- Front-end and back-end servers [In Progress]
-- Time tracking for both projects and learning activities [Completed]
-- Calculation of tracked time for the last week and all-time [In Progress]
-- User-defined time tracking periods [Coming Soon]
-
-Our app is designed to help you stay organized and productive by providing valuable insights into how you're spending your time. 
+## Install Guide:
+`git clone https://github.com/Shuliman/Time_manager.git`
+`install composer reqiuerments`
+create `time_manager` DB
+create table using:
+`CREATE TABLE your_table_name (
+  day DATE NULL,
+  time_on_project FLOAT NULL,
+  time_on_learning FLOAT NULL,
+  PRIMARY KEY (day)
+);`
+You need to configure your server where the app will be running
