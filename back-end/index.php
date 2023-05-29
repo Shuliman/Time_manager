@@ -1,8 +1,8 @@
 <?php
 
-namespace API;
+namespace api;
 
-include __DIR__ . "/API/time.php";
+include_once(__DIR__ . "/API/time.php");
 
 $config = require 'config.php';
 
