@@ -2,7 +2,7 @@
 
 namespace API;
 
-include_once __DIR__ . "/API/time.php";
+include __DIR__ . "/API/time.php";
 
 $config = require 'config.php';
 
